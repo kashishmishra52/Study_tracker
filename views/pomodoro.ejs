@@ -1,0 +1,30 @@
+<!-- views/pomodoro.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Pomodoro Timer</title>
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/pomodoro.css">
+</head>
+<body>
+
+  <header>
+    <h1>⏱️ Pomodoro Timer</h1>
+  </header>
+
+  <main class="container" id="pomodoro">
+    <div class="timer-display">
+      <span id="minutes">25</span>:<span id="seconds">00</span>
+    </div>
+    <div class="controls">
+      <button onclick="startTimer()">Start</button>
+      <button onclick="resetTimer()">Reset</button>
+    </div>
+    <p>Pomodoro Sessions Completed: <span id="sessionCount">0</span></p>
+  </main>
+
+  <script src="/pomodoro.js"></script>
+
+</body>
+</html>

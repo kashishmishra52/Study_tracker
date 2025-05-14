@@ -1,0 +1,38 @@
+#add-task {
+    margin: 2rem;
+    padding: 1rem;
+    background: #f9f9f9;
+    border-radius: 8px;
+  }
+  
+  #add-task form input,
+  #add-task form textarea,
+  #add-task form button {
+    display: block;
+    width: 100%;
+    margin: 0.5rem 0;
+    padding: 0.5rem;
+  }
+  
+  #task-list {
+    margin: 2rem;
+  }
+  
+  #task-list ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  #task-list li {
+    background: #fff;
+    border-left: 5px solid #007bff;
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+    border-radius: 4px;
+  }
+  
+  .completed {
+    text-decoration: line-through;
+    opacity: 0.6;
+  }
+  

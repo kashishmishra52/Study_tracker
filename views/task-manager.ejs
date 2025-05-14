@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Task Manager</title>
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/task.css"> <!-- Optional task-specific CSS -->
+</head>
+<body>
+
+  <header>
+    <h1>📝 Task Manager</h1>
+  </header>
+
+  <main class="container">
+    <!-- Add Task Form -->
+    <section id="add-task">
+      <h2>Add a New Task</h2>
+      <form action="/add-task" method="POST">
+        <input type="text" name="title" placeholder="Task Title" required>
+        <input type="text" name="subject" placeholder="Subject/Category" required>
+        <input type="date" name="dueDate" required>
+        <textarea name="description" placeholder="Description" rows="3"></textarea>
+        <button type="submit">Add Task</button>
+      </form>
+    </section>
+
+    <!-- Task List -->
+    <section id="task-list">
+      <h2>Tasks</h2>
+      <ul>
+        <% if (tasks.length > 0) { %>
+          <% tasks.forEach(task => { %>
+            <li class="<%= task.completed ? 'completed' : '' %>">
+              <strong><%= task.title %></strong> - <%= task.subject %> - Due: <%= task.dueDate %>
+              <form action="/complete-task/<%= task.id %>" method="POST" style="display:inline;">
+                <% if (!task.completed) { %>
+                  <button type="submit">Mark Completed</button>
+                <% } %>
+              </form>
+            </li>
+          <% }) %>
+        <% } else { %>
+          <p>No tasks yet. Add one above!</p>
+        <% } %>
+      </ul>
+    </section>
+  </main>
+
+</body>
+</html>

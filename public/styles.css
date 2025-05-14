@@ -1,0 +1,122 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  
+  header, footer {
+    background: #007bff;
+    color: white;
+    text-align: center;
+    padding: 1rem 0;
+  }
+  /* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    background-color: #3f51b5;
+    color: #fff;
+  }
+  
+  .navbar .logo img {
+    height: 40px;
+  }
+  
+  .nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+  }
+  
+  .nav-links li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .nav-links li a:hover {
+    text-decoration: underline;
+  }
+  
+  
+  #hero {
+    padding: 2rem;
+    text-align: center;
+    background: #f0f0f0;
+  }
+  
+  #hero h2 {
+    margin-bottom: 1rem;
+  }
+  
+  .cta-button {
+    background: #007bff;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+  }
+  
+  #features {
+    display: flex;
+    justify-content: space-around;
+    padding: 2rem;
+    background: #ffffff;
+    flex-wrap: wrap;
+  }
+  
+  .feature-box {
+    width: 30%;
+    background: #f8f8f8;
+    padding: 1rem;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    margin-bottom: 1rem;
+  }
+  
+  #motivation {
+    background: #e0ffe0;
+    padding: 1.5rem;
+    text-align: center;
+    font-style: italic;
+  }
+  .auth-container {
+    max-width: 500px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+  }
+  
+  .auth-container h2 {
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  
+  .auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 30px;
+  }
+  
+  .auth-form input, .auth-form button {
+    padding: 10px;
+    font-size: 16px;
+  }
+  
+  .auth-form button {
+    background-color: #3f51b5;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .auth-form button:hover {
+    background-color: #303f9f;
+  }
+  

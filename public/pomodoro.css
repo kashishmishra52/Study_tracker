@@ -1,0 +1,16 @@
+#pomodoro {
+    text-align: center;
+    margin-top: 2rem;
+  }
+  
+  .timer-display {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+  }
+  
+  .controls button {
+    margin: 0 1rem;
+    padding: 10px 20px;
+    font-size: 1rem;
+  }
+  
