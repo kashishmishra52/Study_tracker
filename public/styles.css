@@ -1,122 +1,221 @@
+/* Base Styling */
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-  }
-  
-  header, footer {
-    background: #007bff;
-    color: white;
-    text-align: center;
-    padding: 1rem 0;
-  }
-  /* Navbar */
+  font-family: 'Georgia', serif;
+  background-color: #E8DBC4; /* Light Cream */
+  color: #561C24; /* Deep Coffee */
+  margin: 0;
+  padding: 0;
+}
+
+/* Header & Footer */
+header, footer {
+  background-color: #561C24; /* Deep Coffee */
+  color: #E8DBC4; /* Light Cream */
+  padding: 1rem 0;
+  text-align: center;
+}
+
 .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 30px;
-    background-color: #3f51b5;
-    color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #6D2932;
+  padding: 1.5rem 3rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.logo img {
+  height: 90px;
+  width: auto;
+  border-radius: 12px;
+  transition: transform 0.3s ease;
+}
+
+.logo img:hover {
+  transform: scale(1.05);
+}
+
+/* Centered nav links using absolute centering */
+.nav-links {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 30px;
+  list-style: none;
+}
+
+.nav-links li a {
+  color: #E8DBC4;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1.1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.nav-links li a:hover {
+  background-color: rgba(231, 215, 192, 0.2);
+  color: #C7B7A3;
+  transform: scale(1.05);
+}
+
+/* Right-aligned login */
+.nav-right {
+  margin-left: auto;
+}
+
+.login-button {
+  color: #E8DBC4;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.login-button:hover {
+  background-color: rgba(231, 215, 192, 0.2);
+  color: #C7B7A3;
+}
+
+
+/* Hero Section */
+#hero {
+  background-color: #C7B7A3; /* Ash Taupe */
+  color: #561C24;
+  padding: 2rem;
+  text-align: center;
+}
+
+.cta-button {
+  background-color: #6D2932; /* Wine Plum */
+  color: #E8DBC4;
+  padding: 0.75rem 1.5rem;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.cta-button:hover {
+  background-color: #561C24; /* Deep Coffee */
+}
+
+/* Features */
+/* General layout for features */
+#features {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 2rem;
+  padding: 2rem;
+  background-color: #FFF9F4; /* Your soft pastel background */
+}
+
+.feature-box {
+  background-color: #E8D8C4; /* From your coffee palette */
+  border-radius: 16px;
+  padding: 1rem;
+  width: 300px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.feature-box:hover {
+  transform: translateY(-5px);
+}
+
+/* Image styling */
+.feature-box img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+}
+
+/* Headings and text */
+.feature-box h3 {
+  color: #561C24;
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.feature-box p {
+  color: #3A3A3A;
+  font-size: 0.95rem;
+}
+
+.feature-box a {
+  display: inline-block;
+  margin: 0.5rem 0;
+  color: #6D2932;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.feature-box a:hover {
+  text-decoration: underline;
+}
+
+
+/* Form Styling */
+.auth-container {
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #FFF;
+  border-radius: 10px;
+  border: 1px solid #C7B7A3;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+.auth-form input,
+.auth-form button {
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: 1px solid #C7B7A3;
+}
+
+.auth-form button {
+  background-color: #6D2932;
+  color: #FFF;
+  font-weight: bold;
+}
+
+.auth-form button:hover {
+  background-color: #561C24;
+}
+#motivation {
+  background: #E8D8C4; /* Soft coffee tone background */
+  padding: 3rem 2rem;
+  text-align: center;
+  font-weight: 700;
+  font-size: 2.5rem;
+  color: #561C24; /* Dark coffee tone for contrast */
+  font-style: normal;
+  border-radius: 12px;
+  max-width: 700px;
+  margin: 2rem auto;
+  box-shadow: 0 8px 15px rgba(86, 28, 36, 0.3);
+  animation: pulseScale 4s ease-in-out infinite;
+}
+
+/* Animation keyframes */
+@keyframes pulseScale {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
   }
-  
-  .navbar .logo img {
-    height: 40px;
+  50% {
+    transform: scale(1.05);
+    opacity: 0.8;
   }
-  
-  .nav-links {
-    list-style: none;
-    display: flex;
-    gap: 20px;
-  }
-  
-  .nav-links li a {
-    color: #fff;
-    text-decoration: none;
-    font-weight: bold;
-  }
-  
-  .nav-links li a:hover {
-    text-decoration: underline;
-  }
-  
-  
-  #hero {
-    padding: 2rem;
-    text-align: center;
-    background: #f0f0f0;
-  }
-  
-  #hero h2 {
-    margin-bottom: 1rem;
-  }
-  
-  .cta-button {
-    background: #007bff;
-    color: white;
-    padding: 0.75rem 1.5rem;
-    text-decoration: none;
-    border-radius: 5px;
-    font-weight: bold;
-  }
-  
-  #features {
-    display: flex;
-    justify-content: space-around;
-    padding: 2rem;
-    background: #ffffff;
-    flex-wrap: wrap;
-  }
-  
-  .feature-box {
-    width: 30%;
-    background: #f8f8f8;
-    padding: 1rem;
-    border-radius: 8px;
-    text-align: center;
-    box-shadow: 0 0 5px rgba(0,0,0,0.1);
-    margin-bottom: 1rem;
-  }
-  
-  #motivation {
-    background: #e0ffe0;
-    padding: 1.5rem;
-    text-align: center;
-    font-style: italic;
-  }
-  .auth-container {
-    max-width: 500px;
-    margin: 40px auto;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 10px;
-  }
-  
-  .auth-container h2 {
-    text-align: center;
-    margin-bottom: 10px;
-  }
-  
-  .auth-form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-bottom: 30px;
-  }
-  
-  .auth-form input, .auth-form button {
-    padding: 10px;
-    font-size: 16px;
-  }
-  
-  .auth-form button {
-    background-color: #3f51b5;
-    color: white;
-    border: none;
-    cursor: pointer;
-  }
-  
-  .auth-form button:hover {
-    background-color: #303f9f;
-  }
-  
+}
