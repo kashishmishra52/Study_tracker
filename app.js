@@ -33,6 +33,11 @@ app.get('/dashboard', (req, res) => {
 app.get('/login', (req, res) => {
     res.render('login');
   });
+  // routes/index.js or app.js
+app.get('/motivation', (req, res) => {
+  res.render('motivation');
+});
+
 
 // Start server
 app.listen(port, () => {

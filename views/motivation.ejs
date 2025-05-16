@@ -1,0 +1,96 @@
+<!-- views/motivation.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Motivation Gallery</title>
+  <link rel="stylesheet" href="/styles.css">
+  <style>
+    body {
+      background-color: #E8DBC4;
+      color: #3E1F23;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .gallery-container {
+      padding: 2rem;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .gallery-title {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+      color: #6D2932;
+    }
+
+    .quote-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .quote-card {
+      background-color: #fff;
+      padding: 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .quote-card:hover {
+      transform: scale(1.03);
+    }
+
+    .quote-text {
+      font-style: italic;
+      font-size: 1rem;
+      color: #6D2932;
+    }
+
+    .quote-author {
+      margin-top: 0.5rem;
+      font-weight: bold;
+      text-align: right;
+      color: #3E1F23;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">
+      <img src="/images/logo.png" alt="App Logo" />
+    </div>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/dashboard">Dashboard</a></li>
+      <li><a href="/motivation">Motivation</a></li>
+      <li><a href="/login">Login/Register</a></li>
+    </ul>
+  </nav>
+
+  <main class="gallery-container">
+    <h1 class="gallery-title">Stay Motivated</h1>
+    <div class="quote-grid">
+      <div class="quote-card">
+        <p class="quote-text">"Success is not final, failure is not fatal: It is the courage to continue that counts."</p>
+        <p class="quote-author">– Winston Churchill</p>
+      </div>
+      <div class="quote-card">
+        <p class="quote-text">"Believe you can and you're halfway there."</p>
+        <p class="quote-author">– Theodore Roosevelt</p>
+      </div>
+      <div class="quote-card">
+        <p class="quote-text">"Don’t watch the clock; do what it does. Keep going."</p>
+        <p class="quote-author">– Sam Levenson</p>
+      </div>
+      <div class="quote-card">
+        <p class="quote-text">"Push yourself, because no one else is going to do it for you."</p>
+        <p class="quote-author">– Unknown</p>
+      </div>
+      <!-- Add more quotes as needed -->
+    </div>
+  </main>
+</body>
+</html>
