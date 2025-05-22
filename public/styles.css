@@ -82,6 +82,46 @@ header, footer {
   background-color: rgba(231, 215, 192, 0.2);
   color: #C7B7A3;
 }
+.user-dropdown {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.username {
+  color: white;
+  padding: 8px;
+  font-weight: bold;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  right: 0;
+  background-color: white;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  min-width: 150px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  z-index: 100;
+}
+
+.dropdown-menu li {
+  border-bottom: 1px solid #ddd;
+}
+
+.dropdown-menu li a {
+  display: block;
+  padding: 10px;
+  text-decoration: none;
+  color: black;
+}
+
+.user-dropdown:hover .dropdown-menu {
+  display: block;
+}
+
 
 
 /* Hero Section */

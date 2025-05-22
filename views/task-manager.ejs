@@ -5,31 +5,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Task Manager</title>
   <link rel="stylesheet" href="/styles.css">
-  <link rel="stylesheet" href="/task.css"> <!-- Optional task-specific CSS -->
+  <link rel="stylesheet" href="/task.css">
 </head>
 <body>
 
-   <nav class="navbar">
-  <div class="logo">
-    <img src="/study.png" alt="App Logo" />
-  </div>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="logo">
+      <img src="/study.png" alt="App Logo" />
+    </div>
 
-  <ul class="nav-links">
-    <li><a href="/">Home</a></li>
-    <li><a href="/dashboard">Dashboard</a></li>
-    <li><a href="/pomodoro">Pomodoro</a></li>
-    <li><a href="/task-manager">Tasks</a></li>
-    <li><a href="/motivation">Motivation</a></li>
-  </ul>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/dashboard">Dashboard</a></li>
+      <li><a href="/pomodoro">Pomodoro</a></li>
+      <li><a href="/task-manager">Tasks</a></li>
+      <li><a href="/motivation">Motivation</a></li>
+    </ul>
 
-  <div class="nav-right">
-    <a href="/login" class="login-button">Login/Register</a>
-  </div>
-</nav>
+    <div class="nav-right">
+      <a href="/login" class="login-button">Login/Register</a>
+    </div>
+  </nav>
 
-
-
+  <!-- Main Container -->
   <main class="container">
+
     <!-- Add Task Form -->
     <section id="add-task">
       <h2>Add a New Task</h2>
@@ -37,6 +38,12 @@
         <input type="text" name="title" placeholder="Task Title" required>
         <input type="text" name="subject" placeholder="Subject/Category" required>
         <input type="date" name="dueDate" required>
+        <select name="priority" required>
+          <option value="" disabled selected>Priority</option>
+          <option value="High">High</option>
+          <option value="Medium">Medium</option>
+          <option value="Low">Low</option>
+        </select>
         <textarea name="description" placeholder="Description" rows="3"></textarea>
         <button type="submit">Add Task</button>
       </form>
@@ -44,15 +51,26 @@
 
     <!-- Task List -->
     <section id="task-list">
-      <h2>Tasks</h2>
-      <ul>
+      <h2>Your Tasks</h2>
+      <ul class="task-items">
         <% if (tasks.length > 0) { %>
           <% tasks.forEach(task => { %>
-            <li class="<%= task.completed ? 'completed' : '' %>">
-              <strong><%= task.title %></strong> - <%= task.subject %> - Due: <%= task.dueDate %>
-              <form action="/complete-task/<%= task.id %>" method="POST" style="display:inline;">
+            <li class="task <%= task.completed ? 'completed' : '' %> priority-<%= task.priority.toLowerCase() %>">
+              <div class="task-header">
+                <strong><%= task.title %></strong>
+                <span class="priority-label"><%= task.priority %></span>
+              </div>
+              <div class="task-meta">
+                <span><strong>Subject:</strong> <%= task.subject %></span> |
+                <span><strong>Due:</strong> <%= task.dueDate %></span>
+              </div>
+              <p class="task-desc"><%= task.description %></p>
+
+              <form action="/complete-task/<%= task.id %>" method="POST">
                 <% if (!task.completed) { %>
                   <button type="submit">Mark Completed</button>
+                <% } else { %>
+                  <span class="status-complete">✅ Completed</span>
                 <% } %>
               </form>
             </li>
@@ -62,6 +80,7 @@
         <% } %>
       </ul>
     </section>
+
   </main>
 
 </body>
