@@ -64,18 +64,53 @@ router.post('/login', async (req, res) => {
             return res.status(400).json({ error: "Invalid credentials" });
         }
 
-        // Store user info in session (optional)
+        // Set session
         req.session.user = {
             id: user._id,
             username: user.username,
             email: user.email
         };
 
-        return res.render('index');  // or res.render('dashboard') or res.json({ message: 'Login successful' });
+        // ⏳ Wait until session is saved before redirecting
+        req.session.save((err) => {
+            if (err) {
+                console.error("Session save error:", err);
+                return res.status(500).json({ error: "Login session failed" });
+            }
+
+            // ✅ Now redirect to home or dashboard
+            return res.redirect('/');
+        });
+
     } catch (error) {
         console.error("Login error:", error);
         return res.status(500).json({ error: "Internal server error" });
     }
 });
+
+router.get('/logout', (req, res) => {
+  req.session.destroy(err => {
+    if (err) {
+      return res.status(500).json({ error: "Logout failed" });
+    }
+    res.redirect('/');
+  });
+});
+
+router.get('/delete-account', async (req, res) => {
+  try {
+    if (!req.session.user) {
+      return res.status(401).json({ error: "Unauthorized" });
+    }
+
+    await User.findByIdAndDelete(req.session.user.id);
+    req.session.destroy(() => {
+      res.redirect('/');
+    });
+  } catch (error) {
+    res.status(500).json({ error: "Error deleting account" });
+  }
+});
+
 
 module.exports = router;

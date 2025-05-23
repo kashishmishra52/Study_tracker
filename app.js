@@ -3,17 +3,27 @@ const express = require('express');
 const path = require('path');
 const app = express();
 const mongoose=require('mongoose');
+const MongoStore = require('connect-mongo');
 const port = 3000;
 const Task = require('./models/task');
 const authroutes=require('./routes/authroutes');
+const taskroutes=require('./routes/taskroutes');
 const User=require('./models/user');
 const session=require('express-session');
 const db=require('./config/db');
+
 app.use(session({
   secret: 'verysecretkey',
   resave: false,
-  saveUninitialized: false
+  saveUninitialized: false,
+  store: MongoStore.create({
+    mongoUrl: 'mongodb://127.0.0.1:27017/study-simplify',  // replace with your DB name
+    collectionName: 'sessions'
+  }),
+  cookie: { maxAge: 1000 * 60 * 60 * 24 } // 1 day
 }));
+
+
 
 app.use((req, res, next) => {
   res.locals.currentUser = req.session.user || null;
@@ -35,6 +45,7 @@ app.use(express.static('public'));
 
 
 app.use('/',authroutes);
+app.use('/',taskroutes);
 // Define routes
 app.get('/', (req, res) => {
   res.render('index');
@@ -60,19 +71,8 @@ app.get('/login', (req, res) => {
 app.get('/motivation', (req, res) => {
   res.render('motivation');
 });
-app.post("/add-task", async (req, res) => {
-  const { title, subject, dueDate, description, priority } = req.body;
-  await Task.create({
-    userId: req.user.id,  // If user system exists
-    title, subject, dueDate, description, priority
-  });
-  res.redirect("/task-manager");
-});
 
-app.post("/complete-task/:id", async (req, res) => {
-  await Task.findByIdAndUpdate(req.params.id, { completed: true });
-  res.redirect("/task-manager");
-});
+
 
 
 // Start server
