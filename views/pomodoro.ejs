@@ -9,7 +9,7 @@
 </head>
 <body>
 
-   <nav class="navbar">
+ <nav class="navbar">
   <div class="logo">
     <img src="/study.png" alt="App Logo" />
   </div>
@@ -23,8 +23,19 @@
   </ul>
 
   <div class="nav-right">
+  <% if (currentUser) { %>
+    <div class="user-dropdown">
+      <span class="username"><%= currentUser.username %> ▼</span>
+      <ul class="dropdown-menu">
+        <li><a href="/logout">Logout</a></li>
+        <li><a href="/delete-account">Delete Account</a></li>
+      </ul>
+    </div>
+  <% } else { %>
     <a href="/login" class="login-button">Login/Register</a>
-  </div>
+  <% } %>
+</div>
+
 </nav>
 
 
