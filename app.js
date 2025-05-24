@@ -5,10 +5,11 @@ const app = express();
 const mongoose=require('mongoose');
 const MongoStore = require('connect-mongo');
 const port = 3000;
-const Task = require('./models/task');
 const authroutes=require('./routes/authroutes');
 const taskroutes=require('./routes/taskroutes');
+const dashboardroutes=require('./routes/dashboardroutes');
 const User=require('./models/user');
+const Task = require('./models/task');
 const session=require('express-session');
 const db=require('./config/db');
 
@@ -46,6 +47,7 @@ app.use(express.static('public'));
 
 app.use('/',authroutes);
 app.use('/',taskroutes);
+app.use('/',dashboardroutes);
 // Define routes
 app.get('/', (req, res) => {
   res.render('index');
