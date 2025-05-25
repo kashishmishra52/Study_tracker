@@ -6,6 +6,25 @@
   <link rel="stylesheet" href="/styles.css">
   <link rel="stylesheet" href="/dashboard.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Optional: auto-refresh every 60 seconds -->
+  <!-- <meta http-equiv="refresh" content="60"> -->
+  <style>
+    .charts {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 40px;
+      padding: 20px;
+    }
+    .chart-box {
+      max-width: 400px;
+      width: 100%;
+    }
+    canvas {
+      width: 100% !important;
+      height: auto !important;
+    }
+  </style>
 </head>
 <body>
 
@@ -41,7 +60,7 @@
   <!-- Main Content -->
   <main class="dashboard-container">
 
-    <!-- Stats -->
+    <!-- Stats Section -->
     <section class="stats">
       <div class="stat-box">
         <h3>Time Studied Today</h3>
@@ -57,93 +76,77 @@
       </div>
     </section>
 
-    <!-- Charts -->
+    <!-- Charts Section -->
     <section class="charts">
-      <canvas id="studyChart" width="400" height="200"></canvas>
-      <canvas id="taskChart" width="400" height="200"></canvas>
+      <div class="chart-box">
+        <canvas id="studyChart"></canvas>
+      </div>
+      <div class="chart-box">
+        <canvas id="taskChart"></canvas>
+      </div>
     </section>
 
   </main>
 
-  <!-- Inject dynamic data -->
   <script>
-    const allTasks = <%- JSON.stringify(allTasks) %>;
-  </script>
+  const allTasks = <%- JSON.stringify(allTasks) %>;
+  const tasksPerDay = <%- tasksPerDay %>;
 
-  <!-- Chart Setup -->
-  <script>
-    // Group tasks by priority
-    const priorityData = { High: 0, Medium: 0, Low: 0 };
-    allTasks.forEach(task => {
-      if (task.priority) {
-        priorityData[task.priority] = (priorityData[task.priority] || 0) + 1;
-      }
-    });
-
-    // Group tasks completed by day for the studyChart (last 7 days)
-    const studyDataMap = {};
-    const today = new Date();
-    for (let i = 6; i >= 0; i--) {
-      const day = new Date();
-      day.setDate(today.getDate() - i);
-      const key = day.toISOString().split('T')[0]; // Format: YYYY-MM-DD
-      studyDataMap[key] = 0;
+  // Priority data
+  const priorityData = { High: 0, Medium: 0, Low: 0 };
+  allTasks.forEach(task => {
+    if (task.priority) {
+      priorityData[task.priority] = (priorityData[task.priority] || 0) + 1;
     }
+  });
 
-    <% allTasks.forEach(task => { %>
-      <% if (task.completed && task.updatedAt) { %>
-        const date = new Date('<%= task.updatedAt.toISOString() %>').toISOString().split('T')[0];
-        if (studyDataMap[date] !== undefined) {
-          studyDataMap[date]++;
-        }
-      <% } %>
-    <% }) %>
+  // Study data for last 7 days
+  const studyLabels = Object.keys(tasksPerDay);
+  const studyCounts = Object.values(tasksPerDay);
 
-    const studyLabels = Object.keys(studyDataMap);
-    const studyCounts = Object.values(studyDataMap);
-
-    // Study Chart (Line)
-    const studyChartCtx = document.getElementById('studyChart').getContext('2d');
-    new Chart(studyChartCtx, {
-      type: 'line',
-      data: {
-        labels: studyLabels,
-        datasets: [{
-          label: 'Tasks Completed per Day',
-          data: studyCounts,
-          borderColor: 'rgba(54, 162, 235, 1)',
-          backgroundColor: 'rgba(54, 162, 235, 0.2)',
-          fill: true,
-          tension: 0.3
-        }]
-      },
-      options: {
-        responsive: true,
-        plugins: {
-          legend: { display: true }
-        }
+  // Study Chart (Line)
+  const studyChartCtx = document.getElementById('studyChart').getContext('2d');
+  new Chart(studyChartCtx, {
+    type: 'line',
+    data: {
+      labels: studyLabels,
+      datasets: [{
+        label: 'Tasks Completed per Day',
+        data: studyCounts,
+        borderColor: 'rgba(54, 162, 235, 1)',
+        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+        fill: true,
+        tension: 0.3
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { display: true }
       }
-    });
+    }
+  });
 
-    // Task Priority Chart (Pie)
-    const taskChartCtx = document.getElementById('taskChart').getContext('2d');
-    new Chart(taskChartCtx, {
-      type: 'pie',
-      data: {
-        labels: ['High', 'Medium', 'Low'],
-        datasets: [{
-          data: [priorityData.High, priorityData.Medium, priorityData.Low],
-          backgroundColor: ['#ff6384', '#ffcd56', '#36a2eb'],
-        }]
-      },
-      options: {
-        responsive: true,
-        plugins: {
-          legend: { position: 'bottom' }
-        }
+  // Task Priority Chart (Pie)
+  const taskChartCtx = document.getElementById('taskChart').getContext('2d');
+  new Chart(taskChartCtx, {
+    type: 'pie',
+    data: {
+      labels: ['High', 'Medium', 'Low'],
+      datasets: [{
+        data: [priorityData.High, priorityData.Medium, priorityData.Low],
+        backgroundColor: ['#ff6384', '#ffcd56', '#36a2eb'],
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { position: 'bottom' }
       }
-    });
-  </script>
+    }
+  });
+</script>
+
 
 </body>
 </html>

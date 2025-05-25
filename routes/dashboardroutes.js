@@ -2,8 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Task = require('../models/task');
 const PomodoroSession = require('../models/pomodoro');
-const moment = require('moment'); // for date handling
-const { model } = require('mongoose');
+const moment = require('moment');
 
 router.get('/dashboard', async (req, res) => {
   if (!req.session.user) return res.redirect('/login');
@@ -14,7 +13,7 @@ router.get('/dashboard', async (req, res) => {
   const weekStart = moment().startOf('isoWeek');
 
   try {
-    // Fetch Pomodoro sessions for today and this week
+    // Pomodoro durations
     const todaySessions = await PomodoroSession.find({
       userId,
       date: { $gte: today.toDate() }
@@ -28,21 +27,33 @@ router.get('/dashboard', async (req, res) => {
     const todayTime = todaySessions.reduce((sum, s) => sum + s.duration, 0);
     const weekTime = weekSessions.reduce((sum, s) => sum + s.duration, 0);
 
-    // Fetch completed tasks
-    const completedTasks = await Task.find({
-      userId,
-      completed: true
-    });
+    // All and completed tasks
+    const allTasks = await Task.find({ userId }).lean();
+    const completedTasks = allTasks.filter(t => t.completed);
 
-    // All tasks for stats
-    const allTasks = await Task.find({ userId });
+    // Prepare task count per day (last 7 days)
+    const tasksPerDay = {};
+    for (let i = 6; i >= 0; i--) {
+      const day = moment().subtract(i, 'days').format('YYYY-MM-DD');
+      tasksPerDay[day] = 0;
+    }
+
+    completedTasks.forEach(task => {
+      if (task.updatedAt) {
+        const day = moment(task.updatedAt).format('YYYY-MM-DD');
+        if (tasksPerDay[day] !== undefined) {
+          tasksPerDay[day]++;
+        }
+      }
+    });
 
     res.render('dashboard', {
       currentUser: req.session.user,
       todayTime,
       weekTime,
       tasksDone: completedTasks.length,
-      allTasks
+      allTasks,
+      tasksPerDay: JSON.stringify(tasksPerDay) // safe to inject as JS object
     });
 
   } catch (err) {
@@ -50,4 +61,5 @@ router.get('/dashboard', async (req, res) => {
     res.status(500).send('Internal Server Error');
   }
 });
-module.exports=router;
+
+module.exports = router;
